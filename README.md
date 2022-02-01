@@ -8,9 +8,9 @@ O usuário administrador possuí o privilégio de cadastrar filmes, categorias, 
 ## diagrama
 ![image](https://user-images.githubusercontent.com/49770176/151904359-93902a09-9398-40a6-a6d7-ee935612d2bf.png)
 
-Heroku deploy link
+## Heroku deploy link
 https://cinema-devweb2-django.herokuapp.com
-
+https://cinema-devweb2-django.herokuapp.com/admin/login/?next=/admin/
 
 ## Usuários
 Superuser
