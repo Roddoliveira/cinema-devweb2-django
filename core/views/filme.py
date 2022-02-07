@@ -4,9 +4,9 @@ from rest_framework.viewsets import ModelViewSet
 
 
 class FilmeViewSet(ModelViewSet):
-    lookup_field = 'id'
+    lookup_field = "id"
     queryset = filme.objects.all()
-    #serializer_class = FilmeSerializer
+    # serializer_class = FilmeSerializer
     def get_serializer_class(self):
         if self.action == "list":
             return FilmeDetailSerializer

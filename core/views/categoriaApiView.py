@@ -6,11 +6,10 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 
 
-
 class CategoriasList(APIView):
     def get(self, request):
         categorias = categoria.objects.all()
-        serializer = CategoriaSerializer(categorias, many = True)
+        serializer = CategoriaSerializer(categorias, many=True)
         return Response(serializer.data)
 
     def post(self, request):
@@ -20,6 +19,7 @@ class CategoriasList(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class CategoriaDetail(APIView):
     def get(self, request, id):
         categorias = get_object_or_404(categoria.objects.all(), id=id)
@@ -28,13 +28,13 @@ class CategoriaDetail(APIView):
 
     def put(self, request, id):
         categorias = get_object_or_404(categoria.objects.all(), id=id)
-        serializer = CategoriaSerializer(categorias, data = request.data)
+        serializer = CategoriaSerializer(categorias, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         else:
-            return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
-    
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     def delete(self, request, id):
         categorias = get_object_or_404(categoria.objects.all(), id=id)
         categorias.delete()
