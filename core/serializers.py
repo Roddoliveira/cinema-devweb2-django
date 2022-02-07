@@ -1,4 +1,5 @@
 from dataclasses import fields
+from email.policy import default
 from django.forms import CharField
 from rest_framework.serializers import ModelSerializer, CharField, SerializerMethodField
 from core.models import categoria
@@ -8,6 +9,7 @@ from core.models import diretor
 from core.models import compra
 from core import models
 from core.models import itenscompra
+from rest_framework import serializers
 
 
 class CategoriaSerializer(ModelSerializer):
@@ -104,6 +106,7 @@ class CriarEditarItensCompraSerializer(ModelSerializer):
 
 class CriarEditarCompraSerializer(ModelSerializer):
     itens = CriarEditarItensCompraSerializer(many=True)
+    usuario = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = compra
@@ -116,7 +119,7 @@ class CriarEditarCompraSerializer(ModelSerializer):
             itenscompra.objects.create(compra=compras, **item)
         compras.save()
         return compras
-        
+
     def update(self, instance, validate_data):
         itens = validate_data.pop("itens")
         if itens:

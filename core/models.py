@@ -32,8 +32,12 @@ class filme(models.Model):
     titulo = models.CharField(max_length=255)
     descricao = models.TextField()
     preco = models.FloatField()
-    categoria = models.ForeignKey(categoria, on_delete=models.PROTECT, related_name="filmes")
-    produtora = models.ForeignKey(produtora, on_delete=models.PROTECT, related_name="filmes")
+    categoria = models.ForeignKey(
+        categoria, on_delete=models.PROTECT, related_name="filmes"
+    )
+    produtora = models.ForeignKey(
+        produtora, on_delete=models.PROTECT, related_name="filmes"
+    )
     diretores = models.ManyToManyField(diretor, related_name="filmes")
 
     def __str__(self):
@@ -47,16 +51,17 @@ class compra(models.Model):
         Pago = 3, "Pago"
 
     usuario = models.ForeignKey(User, on_delete=models.PROTECT, related_name="compras")
-    status = models.IntegerField(choices=statuscompra.choices, default=statuscompra.Carrinho)
+    status = models.IntegerField(
+        choices=statuscompra.choices, default=statuscompra.Carrinho
+    )
 
     def __str__(self):
         return "%s (%s)" % (self.status, self.usuario)
 
-
     @property
     def total(self):
         queryset = self.itens.all().aggregate(
-            total = models.Sum(F("quantidade")* F("filme__preco"))
+            total=models.Sum(F("quantidade") * F("filme__preco"))
         )
         return queryset["total"]
 
